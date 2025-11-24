@@ -16,8 +16,8 @@ os.makedirs(gnb_sklearn_results_path, exist_ok=True)
 
 # Load training set for evaluation
 print("Loading test set for evaluation...\n")
-test_data = np.load("./data/features/pca_saved.npz")
-X_test, y_test, class_names = test_data['X_test'], test_data['y_test'], test_data['class_names']
+test_data = np.load("./data/training/pca_data.npz")
+X_test, y_test, X_train, y_train, class_names = test_data['X_test'], test_data['y_test'], test_data['X_train'], test_data['y_train'], test_data['class_names']
 
 # Load trained custom GNB
 print("Loading trained Custom GNB...\n")
@@ -37,7 +37,7 @@ with open(gnb_sklearn_results_path + "sklearn_gnb_metrics.json", "r") as f:
 
 # Evaluate
 print("Evaluating Custom GNB...\n")
-evaluate_model(gnb, X_test, y_test, class_names, "Custom GNB", custom_model_results_path, custom_gnb_train_time)
+evaluate_model(gnb, X_test, y_test, X_train, y_train, class_names, "Custom GNB", custom_model_results_path, custom_gnb_train_time)
 print("Custom GNB evaluation completed.\nResults saved to {}\n".format(custom_model_results_path) + '\nEvaluating Sklearn GNB...\n')
-evaluate_model(sk_gnb, X_test, y_test, class_names, "Sklearn GNB", gnb_sklearn_results_path, skl_gnb_train_time)
+evaluate_model(sk_gnb, X_test, y_test, X_train, y_train, class_names, "Sklearn GNB", gnb_sklearn_results_path, skl_gnb_train_time)
 print("Sklearn GNB evaluation completed.\nResults saved to {}\n".format(gnb_sklearn_results_path))

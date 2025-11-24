@@ -1,5 +1,13 @@
 *__pycache__/
-models/*/*.pt
-models/*/*.pkl
+models/**/*.pt
+models/**/*.pkl
+models/**/depth_*
+models/**/base
+models/**/shallow
+models/**/deep
+models/**/single
+models/**/wide
+models/**/vgg11
+models/**/vgg11_large_kernels
 data/
 results/

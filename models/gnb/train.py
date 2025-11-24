@@ -1,46 +1,30 @@
 import numpy as np
 from models.gnb.gnb import GaussianNaiveBayes
 from sklearn.naive_bayes import GaussianNB
-from torchvision import datasets
 import time
 import os
 import joblib
 import pickle
 import json
 
+# Paths
 custom_model_path = "./models/gnb/custom_gnb.pkl"
 gnb_sklearn_model_path = "./models/gnb/sklearn_gnb.pkl"
 custom_model_results_path = "./results/gnb/gnb_custom/"
 gnb_sklearn_results_path = "./results/gnb/gnb_sklearn/"
-pca_data_path = './data/features/pca'
+training_data_path = './data/training/pca_data.npz'
 
+# Ensure directories exist
+os.makedirs(os.path.dirname(custom_model_path), exist_ok=True)
 os.makedirs(custom_model_results_path, exist_ok=True)
 os.makedirs(gnb_sklearn_results_path, exist_ok=True)
 
-if not os.path.exists(pca_data_path + '_saved.npz'):
-    # Load PCA features
-    print("Loading PCA features...\n")
-    train_data = np.load(pca_data_path + '_train_50.npz')
-    test_data = np.load(pca_data_path + '_test_50.npz')
-
-    X_train, y_train = train_data['features'], train_data['labels']
-    X_test, y_test = test_data['features'], test_data['labels']
-
-    # Retrieve class names from CIFAR-10 dataset
-    print("Retrieving CIFAR-10 class names...\n")
-    train_dataset = datasets.CIFAR10(root='./data/raw', train=True, download=False)
-    class_names = train_dataset.classes
-
-    # Save loaded PCA features for evaluation use
-    print("Saving loaded PCA features for evaluation use...\n")
-    np.savez(pca_data_path + '_saved.npz', X_test=X_test, y_test=y_test, class_names=class_names, X_train=X_train, y_train=y_train)
-else:
-    # Load saved PCA features
-    print("Loading saved PCA features...\n")
-    pca_data = np.load(pca_data_path + '_saved.npz')
-    X_train, y_train = pca_data['X_train'], pca_data['y_train']
-    X_test, y_test = pca_data['X_test'], pca_data['y_test']
-    class_names = pca_data['class_names']
+# Load saved PCA features
+print("Loading saved PCA features...\n")
+pca_data = np.load(training_data_path)
+X_train, y_train = pca_data['X_train'], pca_data['y_train']
+X_test, y_test = pca_data['X_test'], pca_data['y_test']
+class_names = pca_data['class_names']
 
 # Train custom GNB
 print("Training Custom GNB...\n")

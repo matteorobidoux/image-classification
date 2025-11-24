@@ -19,26 +19,28 @@ def plot_confusion_matrix(y_true, y_pred, classes, title, filename):
     plt.xticks(rotation=45, ha='right')
     plt.yticks(rotation=0)
     
-    # Ensure directory exists
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     
     plt.tight_layout()
     plt.savefig(filename, dpi=300)
     plt.close()
 
-def evaluate_model(model, X_test, y_test, classes, model_name, output_dir, train_time):
+def evaluate_model(model, X_test, y_test, X_train, y_train, classes, model_name, output_dir, train_time):
     """Evaluates the model and saves metrics and confusion matrix."""
-    y_pred = model.predict(X_test)
+    y_pred_test = model.predict(X_test)
+    y_pred_train = model.predict(X_train)
     
-    accuracy = round(accuracy_score(y_test, y_pred), 2)
-    precision = round(precision_score(y_test, y_pred, average='weighted', zero_division=0), 2)
-    recall = round(recall_score(y_test, y_pred, average='weighted', zero_division=0), 2)
-    f1 = round(f1_score(y_test, y_pred, average='weighted', zero_division=0), 2)
+    accuracy = round(accuracy_score(y_test, y_pred_test), 2)
+    train_accuracy = round(accuracy_score(y_train, y_pred_train), 2)
+    precision = round(precision_score(y_test, y_pred_test, average='weighted', zero_division=0), 2)
+    recall = round(recall_score(y_test, y_pred_test, average='weighted', zero_division=0), 2)
+    f1 = round(f1_score(y_test, y_pred_test, average='weighted', zero_division=0), 2)
     train_time = round(train_time, 2)
     
     eval_metrics = {
         'model': model_name,
         'accuracy': accuracy,
+        'train_accuracy': train_accuracy,
         'precision': precision,
         'recall': recall,
         'f1_score': f1,
@@ -51,7 +53,7 @@ def evaluate_model(model, X_test, y_test, classes, model_name, output_dir, train
         json.dump(eval_metrics, f, indent=4)
     
     cm_file = os.path.join(output_dir, f"{to_snake_case(model_name)}_confusion_matrix.png")
-    plot_confusion_matrix(y_test, y_pred, classes, f"{model_name} Confusion Matrix", cm_file)
+    plot_confusion_matrix(y_test, y_pred_test, classes, f"{model_name} Confusion Matrix", cm_file)
     
     return eval_metrics
 

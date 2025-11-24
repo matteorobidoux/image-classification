@@ -5,21 +5,15 @@ from torch.utils.data import TensorDataset, DataLoader
 import os
 
 class MLP(nn.Module):
-    def __init__(self, learning_rate, epochs):
+    def __init__(self, learning_rate, epochs, layers):
         super().__init__()
         self.learning_rate = learning_rate
         self.epochs = epochs
+        self.layer_sizes = layers
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         # Model architecture (Input -> Hidden Layers -> Output)
-        self.model = nn.Sequential(
-            nn.Linear(50, 512),
-            nn.ReLU(),
-            nn.Linear(512, 512),
-            nn.BatchNorm1d(512),
-            nn.ReLU(),
-            nn.Linear(512, 10)
-        ).to(self.device)
+        self.model = layers.to(self.device)
 
         # Loss function and optimizer
         self.criterion = nn.CrossEntropyLoss()

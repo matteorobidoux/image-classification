@@ -1,119 +1,139 @@
 import numpy as np
 
 class DecisionTree:
-    def __init__(self, max_depth=50, min_samples_split=2):
-        # Maximum depth of the tree
+    """
+    Decision Tree model that uses Gini Impurity as the splitting criterion.
+    """
+    def __init__(self, max_depth):
         self.max_depth = max_depth
-
-        # Root of the decision tree
         self.tree = None
-
-        # Minimum samples required to split a node
-        self.min_samples_split = min_samples_split
 
     def _gini_impurity(self, labels):
         """
-        Calculate Gini Impurity for a list of class labels 
-        Gini Impurity = 1 - Σ (P(class_i))^2
+        Calculate Gini Impurity for a list of class labels
+        Gini Impurity = 1 - sum (P(class_i))^2
         """
         num_labels = len(labels)
-        counts = np.unique(labels, return_counts=True)[1]
-        prob = counts / num_labels
-        gini = 1 - np.sum(prob ** 2)
+
+        # Amount of occurrences of each class
+        class_counts = np.unique(labels, return_counts=True)[1]
+        
+        # Probability of each class
+        class_probabilities  = class_counts / num_labels
+        
+        # Gini Impurity calculation: (1 - sum (P(class_i))^2)
+        gini = 1 - np.sum(class_probabilities  ** 2)
+        
         return gini
     
     def _split_data(self, X, y, feature_index, threshold):
-        """Split the dataset into left and right subsets based on a feature and threshold"""    
+        """Split the dataset into left and right subsets based the threshold"""    
         
-        left_mask = X[:, feature_index] <= threshold
-        right_mask = X[:, feature_index] > threshold
+        X_left, y_left, X_right, y_right = [], [], [], []
 
-        X_left = X[left_mask]
-        y_left = y[left_mask]
-        X_right = X[right_mask]
-        y_right = y[right_mask]
+        # Split the data based on the threshold
+        for i in range(len(X)):
+            if X[i][feature_index] <= threshold:
+                X_left.append(X[i])
+                y_left.append(y[i])
+            else:
+                X_right.append(X[i])
+                y_right.append(y[i])
+
+        X_left = np.array(X_left)
+        y_left = np.array(y_left)
+        X_right = np.array(X_right)
+        y_right = np.array(y_right)
+
 
         return X_left, y_left, X_right, y_right
 
     def _best_split(self, X, y):
-        """Find which feature and threshold gives the best split"""
+        """Find which feature and threshold gives the best split (lowest Gini Impurity)"""
                
         best_gini = 1
-        best_feature = None
+        best_feature_index = None
         best_threshold = None
 
+        # Iterate through all features
         for feature_index in range(len(X[0])):
             feature_column = X[:, feature_index]
-            values = np.unique(feature_column)
+            feature_values = np.unique(feature_column)
 
-            thresholds = (values[:-1] + values[1:]) / 2 
-            for threshold in thresholds:
+            # Try every feature and every unique value as a possible split, then pick the split with the lowest weighted Gini impurity
+            for value in feature_values:
 
-                X_left, y_left, X_right, y_right = self._split_data(X, y, feature_index, threshold)
+                # Split the data
+                X_left, y_left, X_right, y_right = self._split_data(X, y, feature_index, value)
 
+                # Skip if one side is empty
                 if len(y_left) == 0 or len(y_right) == 0:
                     continue
 
                 gini_left = self._gini_impurity(y_left)
                 gini_right = self._gini_impurity(y_right)
+
+                # Weighted Gini Impurity: (n_left * Gini_left + n_right * Gini_right) / n_total
                 weighted_gini = (len(y_left) * gini_left + len(y_right) * gini_right) / len(y)
 
+                # Update best split if current is better
                 if weighted_gini < best_gini:
                     best_gini = weighted_gini
-                    best_feature = feature_index
-                    best_threshold = threshold
+                    best_feature_index = feature_index
+                    best_threshold = value
         
-        return best_feature, best_threshold
+        return best_feature_index, best_threshold
     
     def fit(self, X, y):
-        """Public method to train the decision tree classifier"""
+        """Used to train the decision tree model"""
        
         X = np.array(X)
         y = np.array(y)
 
-        self.tree = self._fit(X, y)
+        self.tree = self._build_tree(X, y, 0)
     
-    def _fit(self, X, y, depth=0):
-        """Recursive method to build the decision tree"""
+    def _build_tree(self, X, y, depth):
+        """Build decision tree recursively"""
         
-        # If all labels are the same, make this a leaf node
-        if len(np.unique(y)) == 1:
-            return {'value': y[0]}
-        
-        # If maximum depth is reached or not enough samples to split, make this a leaf node
-        if depth >= self.max_depth or len(y) < self.min_samples_split:
+        # If max depth is reached or theres only 1 class, make this a leaf node
+        if depth >= self.max_depth or len(np.unique(y)) == 1:
             labels, counts = np.unique(y, return_counts=True)
             majority_class = labels[np.argmax(counts)]
             return {'value': majority_class}
         
-        feature, threshold = self._best_split(X, y)
+        # Find the best feature and threshold to split on
+        feature_index, threshold = self._best_split(X, y)
 
         # If no split is found, make this a leaf node
-        if feature is None:
+        if feature_index is None:
             labels, counts = np.unique(y, return_counts=True)
             majority_class = labels[np.argmax(counts)]
             return {'value': majority_class}
         
-        X_left, y_left, X_right, y_right = self._split_data(X, y, feature, threshold)
+        # Split the data
+        X_left, y_left, X_right, y_right = self._split_data(X, y, feature_index, threshold)
         
         # Repeat recursively for left and right subtrees
-        left_subtree = self._fit(X_left, y_left, depth + 1)
-        right_subtree = self._fit(X_right, y_right, depth + 1)
+        left_subtree = self._build_tree(X_left, y_left, depth + 1)
+        right_subtree = self._build_tree(X_right, y_right, depth + 1)
 
+        # Return decision node
         return {
-            'feature': feature,
+            'feature_index': feature_index,
             'threshold': threshold,
             'left': left_subtree,
             'right': right_subtree
         }
     
     def _predict_sample(self, sample, node):
-        """Predict class of a single sample by growing down the tree"""
+        """Predict class of a sample by going through the tree"""
 
+        # If leaf node, return the class value
         if 'value' in node:
             return node['value']
         
-        if sample[node['feature']] <= node['threshold']:
+        # Go left or right based on the samples feature value to the threshold
+        if sample[node['feature_index']] <= node['threshold']:
             return self._predict_sample(sample, node['left'])
         else:
             return self._predict_sample(sample, node['right'])
@@ -129,3 +149,8 @@ class DecisionTree:
             predictions.append(prediction)
         
         return np.array(predictions)
+    
+# Sources:
+# https://blog.quantinsti.com/gini-index/
+# https://koalaverse.github.io/machine-learning-in-R/decision-trees.html#tree-algorithms
+# https://medium.com/@enozeren/building-a-decision-tree-from-scratch-324b9a5ed836

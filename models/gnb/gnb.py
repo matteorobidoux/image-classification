@@ -1,64 +1,70 @@
 import numpy as np
 
 class GaussianNaiveBayes:
-    """Simple Gaussian Naive Bayes implementation using NumPy."""
+    """Gaussian Naive Bayes implementation using NumPy"""
 
     def __init__(self):
         self.means = {}
-        self.var = {}
+        self.vars = {}
         self.priors = {}
 
     def fit(self, X, y):
         """Fit the model by calculating the mean, variance, and prior for each class"""
 
-        # Get all unique class labels (Cause values)
         classes = np.unique(y)
         n_features = X.shape[1]
 
+        # Initialize mean and variance arrays with zeros (size is num_classes x num_features)
         self.means = np.zeros((len(classes), n_features))
         self.vars = np.zeros((len(classes), n_features))
+        # Initialize prior probabilities array with zeros (size is num_classes)
         self.priors = np.zeros(len(classes))
 
-        for idx, cls in enumerate(classes):
-            X_c = X[y == cls]
+        for class_index, class_label in enumerate(classes):
+            
+            # Get samples belonging to the current class
+            rows_for_class = []
+            for i in range(len(y)):
+                if y[i] == class_label:
+                    rows_for_class.append(X[i])
+            X_class = np.array(rows_for_class)
 
-            # Calculate mean and variance for each feature
-            self.means[idx, :] = X_c.mean(axis=0)
-            self.vars[idx, :] = X_c.var(axis=0) + 1e-9
+            # Calculate mean and variance for each feature (1e-9 added to avoid division by zero)
+            self.means[class_index] = np.mean(X_class, axis=0)
+            self.vars[class_index] = np.var(X_class, axis=0) + 1e-9 
 
-            # Calculate prior probability for each class (P(Cause) = count(Cause) / total_samples)
-            self.priors[idx] = X_c.shape[0] / X.shape[0]
+            # Calculate prior probability for each class (P(Class) = count(Class) / total_samples)
+            self.priors[class_index] = X_class.shape[0] / X.shape[0]
 
-    def _gaussian_probability(self, class_idx, x):
+    def _gaussian_probability(self, class_id, x):
         """
-        Calculates P(x|Cause) for a single sample using the Gaussian probability function.
-        P(x_i | Class) = (1 / sqrt(2πσ²)) * exp(-(x_i - μ)² / (2σ²))
+        Calculates P(x_i|Class) for a single sample using the Gaussian probability function
         """
+        mean = self.means[class_id]
+        var = self.vars[class_id]
         
-        mean = self.means[class_idx]
-        var = self.vars[class_idx]
-        
-        # Calculate Gaussian probability
+        # Calculate Gaussian probability (P(x_i | Class)
         numerator = np.exp(-((x - mean) ** 2) / (2 * var))
         denominator = np.sqrt(2 * np.pi * var)
         return numerator / denominator
     
     def predict(self, X):
         """
-        Predict the class labels for given samples using Bayes rule and then pick the class with the highest posterior probability P(Cause|x).
-        P(Cause|x) = P(Cause) * Π P(x_i | Cause)
-        Using log probabilities to avoid underflow:
-        log(P(Cause|x)) = log(P(Cause)) + Σ log(P(x_i | Cause))
+        Predict the class labels for samples using Bayes rule and then pick the class with the highest posterior probability P(Class|x).
+        log(P(Class|x)) = log(P(Class)) + sum log(P(x_i|Class))
         """
         
         y_pred = []
+
         for x in X:
             posteriors = []
 
-            # For each class, calculate: log(P(Cause)) + Σ log(P(x_i | Cause))
-            for idx in range(len(self.priors)):
-                prior = np.log(self.priors[idx])
-                conditional = np.sum(np.log(self._gaussian_probability(idx, x)))
+            # For each class, calculate the posterior probability: log(P(Class)) + sum log(P(x_i|Class))
+            for i in range(len(self.priors)):
+                # Calculate log of prior probability of the class: log(P(Class))
+                prior = np.log(self.priors[i])
+                # For each feature i in x, calculate Gaussian probability: sum log(P(x_i | Class))
+                conditional = np.sum(np.log(self._gaussian_probability(i, x)))
                 posterior = prior + conditional
                 posteriors.append(posterior)
 
@@ -66,3 +72,6 @@ class GaussianNaiveBayes:
             y_pred.append(np.argmax(posteriors))
 
         return np.array(y_pred)
+    
+# Sources:
+# https://www.ibm.com/think/topics/naive-bayes

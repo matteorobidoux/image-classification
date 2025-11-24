@@ -3,64 +3,16 @@ import torch.nn as nn
 import torch.optim as optim
 import os
 
-class VGG11(nn.Module):
-    def __init__(self, learning_rate, epochs):
+class CNN(nn.Module):
+    def __init__(self, learning_rate, epochs, layers):
         super().__init__()
         self.learning_rate = learning_rate
         self.epochs = epochs
+        self.layers = layers
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        # Convolutional and Fully Connected layers for VGG11 architecture
-        self.convolutional_layer = nn.Sequential(
-            nn.Conv2d(3, 64, 3, 1, 1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(),
-            nn.MaxPool2d(2, 2),
-
-            nn.Conv2d(64, 128, 3, 1, 1),
-            nn.BatchNorm2d(128),
-            nn.ReLU(),
-            nn.MaxPool2d(2, 2),
-
-            nn.Conv2d(128, 256, 3, 1, 1),
-            nn.BatchNorm2d(256),
-            nn.ReLU(),
-
-            nn.Conv2d(256, 256, 3, 1, 1),
-            nn.BatchNorm2d(256),
-            nn.ReLU(),
-            nn.MaxPool2d(2, 2),
-
-            nn.Conv2d(256, 512, 3, 1, 1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(),
-
-            nn.Conv2d(512, 512, 3, 1, 1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(),
-            nn.MaxPool2d(2, 2),
-
-            nn.Conv2d(512, 512, 3, 1, 1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(),
-
-            nn.Conv2d(512, 512, 3, 1, 1),
-            nn.BatchNorm2d(512),
-            nn.ReLU(),
-            nn.MaxPool2d(2, 2)
-        )
-
-        self.fully_connected_layer = nn.Sequential(
-            nn.Linear(512, 4096),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-
-            nn.Linear(4096, 4096),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-
-            nn.Linear(4096, 10)
-        )
+        self.features = self.layers["features"]
+        self.classifier = self.layers["classifier"]
 
         # Loss function and optimizer
         self.criterion = nn.CrossEntropyLoss()
@@ -72,11 +24,11 @@ class VGG11(nn.Module):
         """Defines the forward pass of the VGG11 model"""
         x = x.to(self.device)
         # Convolutional + Pooling layers extraction
-        x = self.convolutional_layer(x)
+        x = self.features(x)
         # Flatten 2D feature maps to 1D feature vectors
         x = x.view(x.size(0), -1)
         # Fully connected layers for classification
-        x = self.fully_connected_layer(x)
+        x = self.classifier(x)
         return x
 
     def fit(self, X, y, output_dir):
@@ -99,7 +51,6 @@ class VGG11(nn.Module):
             correct = 0
             total = 0
 
-            # Iterate over batches
             for inputs, labels in dataloader:
 
                 # Feedforward -> Compute loss -> Backpropagation and optimization -> Update weights
