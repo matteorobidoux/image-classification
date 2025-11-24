@@ -1,6 +1,8 @@
 from torch import nn
+
 # MLP configuration parameters
 
+# Define MLP architectures
 models = {
     "single": {
         "layers": [50, 10],
@@ -67,6 +69,7 @@ models = {
     }
 }
 
+# Selected model and training parameters
 selected_model = "wide"
 epochs = 100
 learning_rate = 0.001

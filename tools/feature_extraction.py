@@ -16,13 +16,14 @@ def get_resnet18_transform():
     return transform
 
 def load_resnet18_extractor():
-    """Loads pre-trained ResNet18 model without classification layer"""
+    """Loads pretrained ResNet18 model without classification layer"""
     model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
     model = nn.Sequential(*(list(model.children())[:-1]))
     model.eval()
     return model
 
 def extract_features(model, data):
+    """Extracts features from data using the given model"""
     loader = DataLoader(data, batch_size=32, shuffle=False)
     model.eval()
 

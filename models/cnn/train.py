@@ -4,15 +4,21 @@ from models.cnn.cnn import CNN
 import time
 import os
 import json
+from tools.evaluation_utils import set_seed
 from models.cnn.configs import models, selected_model, learning_rate, epochs
 
+# Set random seed for reproducibility
+set_seed(42)
+
+# Paths
 custom_model_path = "./models/cnn/" + selected_model + "/custom_cnn.pt"
-custom_model_results_path = "./results/cnn/" + selected_model + "/custom_cnn/"
+custom_model_results_path = "./results/cnn/custom_cnn/" + selected_model
 training_data_path = './data/training/cifar10_data.npz'
 
 os.makedirs(custom_model_results_path, exist_ok=True)
 os.makedirs(os.path.dirname(custom_model_path), exist_ok=True)
 
+# Load CIFAR-10 subsets
 print("Loading saved CIFAR-10 subsets...\n")
 data = np.load(training_data_path)
 X_train, y_train = data['X_train'], data['y_train']

@@ -1,7 +1,8 @@
 import torch.nn as nn
 
-# Configuration for CNN models
+# CNN Configuration Parameters
 
+# Define CNN architectures
 models = {
     "vgg11": {
         "features": nn.Sequential(

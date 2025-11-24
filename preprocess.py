@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from torchvision import datasets
+from tools.evaluation_utils import set_seed
 from tools.cifar10_utils import load_cifar10_data, select_sample, save_dataset
 from tools.feature_extraction import (
     get_resnet18_transform,
@@ -11,6 +12,10 @@ from tools.feature_extraction import (
 from tools.pca_utils import apply_pca, save_pca_features
 import os
 
+# Set random seed for reproducibility
+set_seed(42)
+
+# Define paths
 subset_data_path = './data/subsets/'
 training_data_path = './data/training/'
 features_data_path = './data/features/'
@@ -18,7 +23,7 @@ features_data_path = './data/features/'
 print("Loading CIFAR-10 data...\n")
 train_data, test_data = load_cifar10_data()
 
-print("Selecting 500 training and 100 test samples per class...\n")
+print("Selecting first 500 training and 100 test samples per class...\n")
 train_subset = select_sample(train_data, 500)
 test_subset = select_sample(test_data, 100)
 

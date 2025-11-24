@@ -6,6 +6,7 @@ import json
 import pickle
 import os
 
+# Paths
 custom_model_path = "./models/gnb/custom_gnb.pkl"
 gnb_sklearn_model_path = "./models/gnb/sklearn_gnb.pkl"
 custom_model_results_path = "./results/gnb/gnb_custom/"

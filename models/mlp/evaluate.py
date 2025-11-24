@@ -5,7 +5,11 @@ from tools.evaluation_utils import evaluate_model
 import joblib
 import json
 import os
+from tools.evaluation_utils import set_seed
 from models.mlp.configs import models, selected_model, learning_rate, epochs
+
+# Set seed for reproducibility
+set_seed(42)
 
 # Paths
 custom_model_path = f"./models/mlp/{selected_model}/custom_mlp.pt"

@@ -4,10 +4,15 @@ from models.cnn.cnn import CNN
 from tools.evaluation_utils import evaluate_model
 import json
 import os
+from tools.evaluation_utils import set_seed
 from models.cnn.configs import selected_model, learning_rate, epochs, models
 
+# Set seed for reproducibility
+set_seed(42)
+
+# Paths
 custom_model_path = "./models/cnn/" + selected_model + "/custom_cnn.pt"
-custom_model_results_path = "./results/cnn/" + selected_model + "/custom_cnn/"
+custom_model_results_path = "./results/cnn/custom_cnn/" + selected_model
 training_data_path = './data/training/cifar10_data.npz'
 
 os.makedirs(custom_model_results_path, exist_ok=True)
