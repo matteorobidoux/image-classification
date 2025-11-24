@@ -29,22 +29,14 @@ class DecisionTree:
     def _split_data(self, X, y, feature_index, threshold):
         """Split the dataset into left and right subsets based the threshold"""    
         
-        X_left, y_left, X_right, y_right = [], [], [], []
+        X = np.array(X)
+        y = np.array(y) 
 
-        # Split the data based on the threshold
-        for i in range(len(X)):
-            if X[i][feature_index] <= threshold:
-                X_left.append(X[i])
-                y_left.append(y[i])
-            else:
-                X_right.append(X[i])
-                y_right.append(y[i])
+        # Split based on the threshold
+        left_indices = X[:, feature_index] <= threshold
+        right_indices = X[:, feature_index] > threshold
 
-        X_left = np.array(X_left)
-        y_left = np.array(y_left)
-        X_right = np.array(X_right)
-        y_right = np.array(y_right)
-
+        X_left, y_left, X_right, y_right = X[left_indices], y[left_indices], X[right_indices], y[right_indices]
 
         return X_left, y_left, X_right, y_right
 

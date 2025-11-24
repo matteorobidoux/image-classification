@@ -154,7 +154,7 @@ The following models have been implemented and trained on the CIFAR-10 subsets (
    python preprocess.py
    ```
 3. **Select model configurations:**
-   - Modify the configuration files in each model directory (`models/decision_tree/configs.py`, `models/mlp/configs.py`, `models/cnn/configs.py`) to select desired model variations and hyperparameters.
+   - Modify `selected_model` in the configuration files in each model directory (`models/decision_tree/configs.py`, `models/mlp/configs.py`, `models/cnn/configs.py`) to select desired model variation.
 4. **Train the models**
    ```bash
    python -m models.gnb.train

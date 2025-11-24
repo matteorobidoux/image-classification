@@ -1,4 +1,4 @@
 # Configuration for Decision Tree model
 
-# Set the maximum depth of the decision tree
-max_depth = 10
+# Maximum depth of the decision tree (options: 5, 10, 20, 50)
+max_depth = 5

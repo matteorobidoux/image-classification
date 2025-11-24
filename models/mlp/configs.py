@@ -69,7 +69,8 @@ models = {
     }
 }
 
-# Selected model and training parameters
-selected_model = "wide"
+# Selected model (options: "single", "shallow", "base", "deep", "wide")
+selected_model = "base"
+
 epochs = 100
 learning_rate = 0.001

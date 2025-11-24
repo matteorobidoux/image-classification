@@ -205,17 +205,17 @@ Both the custom Gaussian Naive Bayes (GNB) implementation and the Sklearn GNB mo
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Custom GNB} & \textbf{Sklearn GNB} \\ \hline
-Accuracy & 0.79 & 0.79 \\ \hline
+Accuracy & 0.80 & 0.780 \\ \hline
 Train Accuracy & 0.82 & 0.82 \\ \hline
-Precision & 0.79 & 0.79 \\ \hline
-Recall & 0.79 & 0.79 \\ \hline
-F1-Score & 0.79 & 0.79 \\ \hline
-Training Time (s) & 0.06 & 0.26 \\ \hline
+Precision & 0.80 & 0.80 \\ \hline
+Recall & 0.80 & 0.80 \\ \hline
+F1-Score & 0.80 & 0.80 \\ \hline
+Training Time (s) & 0.03 & 0.01 \\ \hline
 \end{tabular}
 \textbf{\caption{GNB Results}}
 \label{gnb_results}
 \end{table}
-Both models show an identical performance across all metrics, indicating that the custom implementation is working correctly. With an accuracy of \textbf{79\%}, the GNB models perform surprisingly well considering its simplicity and training time.
+Both models show an identical performance across all metrics, indicating that the custom implementation is working correctly. With an accuracy of \textbf{80\%}, the GNB models perform surprisingly well considering its simplicity and training time.
 \newline
 \newline
 The confusion matrices for both models are shown in Figure~\ref{gnb_confusion_matrices}. Both models once again show identical results, with most classes being classified correctly. However, some misclassifications are seen, such as cats being misclassified as dogs which is expected due to the similar features between the two classes.
@@ -242,17 +242,17 @@ The peformance of the custom DT across these depths is summarized in Table~\ref{
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Depth 5} & \textbf{Depth 10} & \textbf{Depth 20} & \textbf{Depth 50} \\ \hline
-Accuracy & 0.55 & 0.60 & 0.57 & 0.57 \\ \hline
+Accuracy & 0.55 & 0.61 & 0.57 & 0.57 \\ \hline
 Train Accuracy & 0.62 & 0.88 & 1.00 & 1.00 \\ \hline
-Precision & 0.56 & 0.61 & 0.57 & 0.57 \\ \hline
-Recall & 0.55 & 0.60 & 0.57 & 0.57 \\ \hline
-F1-Score & 0.54 & 0.60 & 0.57 & 0.57 \\ \hline
-Training Time (s) & 206.57 & 284.12 & 369.03 & 406.09 \\ \hline
+Precision & 0.56 & 0.62 & 0.57 & 0.57 \\ \hline
+Recall & 0.55 & 0.61 & 0.57 & 0.57 \\ \hline
+F1-Score & 0.54 & 0.61 & 0.57 & 0.57 \\ \hline
+Training Time (s) & 258.49 & 342.55 & 369.03 & 406.09 \\ \hline
 \end{tabular}
 \textbf{\caption{Custom DT Results with Varying Depths}}
 \label{custom_depth_dt_results}
 \end{table}
-The results show that the depth of the tree has a significant impact on the performance of the custom DT model. With a maximum depth of 5, the model is \textbf{underfitting} the data with a training accuracy of only \textbf{62\%} and a test accuracy of \textbf{55\%}. As the depth increases to 10, the model's performance improves with a training accuracy of \textbf{88\%} and a test accuracy of \textbf{60\%}. However, when the depth is increased to 20 and 50, the model achieves perfect training accuracy but the test accuracy drops to \textbf{57\%}, indicating \textbf{overfitting}. Ultimately, a maximum depth of 10 provides the best outcome with a good balance between training and test accuracy.
+The results show that the depth of the tree has a significant impact on the performance of the custom DT model. With a maximum depth of 5, the model is \textbf{underfitting} the data with a training accuracy of only \textbf{62\%} and a test accuracy of \textbf{55\%}. As the depth increases to 10, the model's performance improves with a training accuracy of \textbf{88\%} and a test accuracy of \textbf{61\%}. However, when the depth is increased to 20 and 50, the model achieves perfect training accuracy but the test accuracy drops to \textbf{57\%}, indicating \textbf{overfitting}. Ultimately, a maximum depth of 10 provides the best outcome with a good balance between training and test accuracy.
 \subsubsection{Comparison Between Custom and Sklearn Decision Tree}
 After analyzing the effect of maximum depth on the custom Decision Tree (DT) model, a maximum depth of 10 was selected as the best performing depth due to its balance between training and test accuracy. Table~\ref{dt_comparison_results} summarizes the performance metrics of both the custom and Sklearn DT models at this depth.\\
 \begin{table}[H]
@@ -260,17 +260,17 @@ After analyzing the effect of maximum depth on the custom Decision Tree (DT) mod
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Custom DT (Depth 10)} & \textbf{Sklearn DT (Depth 10)} \\ \hline
-Accuracy & 0.60 & 0.60 \\ \hline
+Accuracy & 0.61 & 0.62 \\ \hline
 Train Accuracy & 0.88 & 0.88 \\ \hline
-Precision & 0.61 & 0.61 \\ \hline
-Recall & 0.60 & 0.60 \\ \hline
-F1-Score & 0.60 & 0.60 \\ \hline
-Training Time (s) & 284.12 & 0.38 \\ \hline
+Precision & 0.62 & 0.62 \\ \hline
+Recall & 0.61 & 0.62 \\ \hline
+F1-Score & 0.61 & 0.62 \\ \hline
+Training Time (s) & 342.55 & 0.39 \\ \hline
 \end{tabular}
 \textbf{\caption{Comparison of Custom and Sklearn DT Results}}
 \label{dt_comparison_results}
 \end{table}
-The results show that both models achieve identical performance across all metrics, indicating that the custom implementation is functioning correctly. However, the training time for the custom DT is significantly higher than that of the Sklearn implementation. This is largely because sckit-learns tree is implemented in optimized C/Cython code with several advanced libraries, while the custom implementation is done purely in Python/NumPy [8]. 
+The results show that both models achieve nearly identical performances across all metrics, indicating that the custom implementation is functioning correctly. However, the training time for the custom DT is significantly higher than that of the Sklearn implementation. This is largely because sckit-learns tree is implemented in optimized C/Cython code with several advanced libraries, while the custom implementation is done purely in Python/NumPy [8]. 
 \newline 
 \newline
 The confusion matrices for for both the custom and Sklearn models with a maximum depth of 10 are shown in Figure~\ref{dt_confusion_matrices}. 
@@ -301,75 +301,75 @@ All architectures were trained using the same training settings shown in Table~\
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Single-Layer} & \textbf{Shallow} & \textbf{Base} & \textbf{Deep} & \textbf{Wide} \\ \hline
-Accuracy & 0.82 & 0.84 & 0.82 & 0.80 & 0.83 \\ \hline
+Accuracy & 0.83 & 0.83 & 0.82 & 0.80 & 0.83 \\ \hline
 Train Accuracy & 0.87 & 0.95 & 1.0 & 1.0 & 1.0 \\ \hline
-Precision & 0.83 & 0.85 & 0.82 & 0.81 & 0.83 \\ \hline
-Recall & 0.82 & 0.84 & 0.82 & 0.80 & 0.83 \\ \hline
-F1-Score & 0.82 & 0.84 & 0.82 & 0.90 & 0.83 \\ \hline
-Training Time (s) & 21.25 & 30.49 & 51.95 & 120.66 & 113.82 \\ \hline
+Precision & 0.83 & 0.83 & 0.82 & 0.81 & 0.83 \\ \hline
+Recall & 0.83 & 0.83 & 0.82 & 0.80 & 0.83 \\ \hline
+F1-Score & 0.83 & 0.83 & 0.82 & 0.90 & 0.83 \\ \hline
+Training Time (s) & 35.86 & 34.33 & 77.95 & 120.66 & 113.82 \\ \hline
 \end{tabular}
 \textbf{\caption{Custom MLP Results with Varying Architectures}}
 \label{custom_mlp_arch_results}
 \end{table}
-The results show that the increase of depth and width do not always lead to better performance. The shallow architecture had the best overall results with a test accuracy of \textbf{84\%} and a training accuracy of \textbf{95\%}, stipulating that it was able to learn the data well without overfitting. The single-layer MLP also performed well with a test accuracy of \textbf{82\%} and a training accuracy of \textbf{87\%}, showing that even a simple architecture can achieve good results. Where as the deeper and wider models attained \textbf{100\%} training accuracy but had lower test accuracies of \textbf{80\%} and \textbf{83\%} respectively, suggesting overfitting.
+The results show that the increase of depth and width do not always lead to better performance. The single-layer architecture had the best overall results with an accuracy of \textbf{83\%} and a training accuracy of \textbf{87\%}, stipulating that it was able to learn the data well without overfitting. The shallow MLP also performed well with a test accuracy of \textbf{83\%} and a training accuracy of \textbf{95\%}, showing that simple architectures can achieve good results. Where as the deeper and wider models attained \textbf{100\%} training accuracy but had lower test accuracies of \textbf{80\%} and \textbf{83\%} respectively, suggesting overfitting.
 \subsubsection{Comparison Between Custom and Sklearn Multi-Layer Perceptron}
-Since the shallow architecture provided the best performance for the custom MLP, we will compare it against the Sklearn MLP with the same architecture. The performance metrics for both the custom and Sklearn MLP with the shallow architecture are summarized in Table~\ref{mlp_comparison_results}.
+Since the single-layer architecture provided the best performance for the custom MLP, we will compare it against the Sklearn MLP with the same architecture. The performance metrics for both the custom and Sklearn MLP with the single-layer architecture are summarized in Table~\ref{mlp_comparison_results}.
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Custom MLP} & \textbf{Sklearn MLP} \\ \hline
-Accuracy & 0.84 & 0.83 \\ \hline
-Train Accuracy & 0.95 & 0.97 \\ \hline
-Precision & 0.85 & 0.83 \\ \hline
-Recall & 0.84 & 0.83 \\ \hline
-F1-Score & 0.84 & 0.83 \\ \hline
-Training Time (s) & 30.49 & 6.33 \\ \hline
+Accuracy & 0.83 & 0.83 \\ \hline
+Train Accuracy & 0.87 & 0.87 \\ \hline
+Precision & 0.83 & 0.83 \\ \hline
+Recall & 0.83 & 0.83 \\ \hline
+F1-Score & 0.83 & 0.83 \\ \hline
+Training Time (s) & 35.86 & 4.48 \\ \hline
 \end{tabular}
-\textbf{\caption{Comparison of Custom and Sklearn MLP Results with Shallow Architecture}}
+\textbf{\caption{Comparison of Custom and Sklearn MLP Results with Single-Layer Architecture}}
 \label{mlp_comparison_results}
 \end{table}
-Both implementations of the MLP with the shallow architecture achieve similar performance, with the custom MLP slightly outperforming the Sklearn MLP in every metric but training time where it takes nearly 5 times longer to train. This is likely due to the optimized nature of the Sklearn implementation compared to the custom PyTorch implementation. Despite the minor differences, both models demonstrate strong performance on the CIFAR-10 dataset with the shallow architecture, indicating that not only is this architecture and model suitable for this problem, but also that the custom implementation is working correctly.
+Both implementations of the MLP with the single-layer architecture achieved identical performances, with the Sklearn MLP slightly outperforming the custom MLP solely in training time where it was nearly 10x faster. This is likely due to the optimized nature of the Sklearn implementation compared to the custom PyTorch implementation. Despite the minor difference, both models demonstrate strong performance on the CIFAR-10 dataset with the signle-layer architecture, indicating that not only is this architecture and model suitable for this problem, but also that the custom implementation is working correctly.
 \newline
 \newline
-To show how the shallow MLP trains over time, a subset of the training logs for the custom implementation is shown in Table~\ref{mlp_training_log}.
+To show how the single-layer MLP trains over time, a subset of the training logs for the custom implementation is shown in Table~\ref{mlp_training_log}.
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Epoch} & \textbf{Train Loss} & \textbf{Train Accuracy} \\
 \hline
-1 & 1.7782 & 48.70\% \\
+1 & 1.3487 & 55.54\% \\
 \hline
-10 & 0.5128 & 83.64\% \\
+10 & 0.4465 & 85.18\% \\
 \hline
-25 & 0.4067 & 85.88\% \\
+25 & 0.4020 & 86.12\% \\
 \hline
-50 & 0.3350 & 88.38\% \\
+50 & 0.3831 & 86.66\% \\
 \hline
-75 & 0.2726 & 90.88\% \\
+75 & 0.3773 & 87.08\% \\
 \hline
-100 & 0.2421 & 92.06\% \\
+100 & 0.3752 & 86.92\% \\
 \hline
 \end{tabular}
-\textbf{\caption{Custom MLP Shallow Architecture Training Log (Subset)}}
+\textbf{\caption{Custom MLP Single-Layer Architecture Training Log (Subset)}}
 \label{mlp_training_log}
 \end{table}
-The model starts with an accurary of \textbf{48.70\%} in the first epoch and steadily improves over time, reaching a training accuracy of \textbf{92.06\%} by the $100^{th}$ epoch but may have started to overfit near the $75^{th}$ epoch. This indicates that the model is effectively learning from the training data over time.
+The model starts with an accurary of \textbf{55.54\%} in the first epoch and steadily improves over time, reaching a training accuracy of \textbf{86.92\%} by the $100^{th}$ epoch but was clearly limited and showed potential signs of overfitting. This indicates that the model is effectively learning from the training data over time but is constrained by its simple architecture.
 \newline
 \newline
-The confusion matrices for both models with the shallow architecture are shown in Figure~\ref{mlp_confusion_matrices}.
+The confusion matrices for both models with the single-layer architecture are shown in Figure~\ref{mlp_confusion_matrices}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{../results/mlp/mlp_custom/shallow/custom_mlp_confusion_matrix.png}
-    \includegraphics[width=0.75\textwidth]{../results/mlp/mlp_sklearn/shallow/sklearn_mlp_confusion_matrix.png}
-    \caption{Confusion matrices for the Custom MLP (top) and Sklearn MLP (bottom) with shallow architecture.}
+    \includegraphics[width=0.75\textwidth]{../results/mlp/mlp_custom/single/custom_mlp_confusion_matrix.png}
+    \includegraphics[width=0.75\textwidth]{../results/mlp/mlp_sklearn/single/sklearn_mlp_confusion_matrix.png}
+    \textbf{\caption{Confusion matrices for the Custom MLP (top) and Sklearn MLP (bottom) with Single-Layer Architecture.}}
     \label{mlp_confusion_matrices}
 \end{figure}
 Both models show similar classification patterns, with most classes being classified correctly. However, some misclassifications occur, such as mistaking cats and dogs for each other (~12), which is expected due to their similar features. The similarities between both confusion matrices reinforces the idea that both implementations are functioning correctly.
 \newline
 \newline
-In summary, the results show that both implementations of the MLP with the shallow architecture perform well on the CIFAR-10 dataset, with the custom implementation being slightly better in every metric except training time. Based on these results and analysis, the shallow MLP architecture seems to be an effective solution to the CIFAR-10 image classification problem.
+In summary, the results show that both implementations of the MLP with the single-layer architecture perform well on the CIFAR-10 dataset, with the custom implementation being slightly better in every metric except training time. Based on these results and analysis, the single-layer MLP architecture seems to be an effective solution to the CIFAR-10 image classification problem.
 \subsection{Convolutional Neural Network Results}
 \subsubsection{CNN Training Environment}
 Unlike the other models, the Convolutional Neural Network (CNN) model was trained directly on the 32 x 32 x 3 CIFAR-10 images. Due to the high computational power needed to train the CNN model, all experiments were conducted on Google Colab using the environment specifications detailed in Table~\ref{cnn_env_specifications}.\\
@@ -415,7 +415,7 @@ The results show that by increasing the depth of the CNN from the shallow versio
 Since the base VGG11 architecture had the best performance, we will only analyze its confusion matrix shown in Figure~\ref{cnn_confusion_matrix} since the other two models had similar classification patterns.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{../results/cnn/vgg11/custom_cnn/custom_cnn_confusion_matrix.png}
+    \includegraphics[width=0.75\textwidth]{../results/cnn/custom_cnn/vgg11/custom_cnn_confusion_matrix.png}
     \textbf{\caption{Confusion matrix for the VGG11 CNN architecture}}
     \label{cnn_confusion_matrix}
 \end{figure}
@@ -458,10 +458,10 @@ This project explored the implementation and evlauation of four different mahcin
 Three of the four models (GNB, DT, MLP) were trained and evaluated on a 50-dimensional PCA feature vector extracted from the CIFAR-10 subset, while the CNN model was trained directly on the subset of CIFAR-10 images. The PCA based models benefited from the reduced dimensionality, allowing them to train faster and more efficiently. The CNN model, on the other hand, had to handle the high-dimensional images directly, leading to longer training times and the need for more computational power.
 \newline
 \newline
-The Gaussian Naive Bayes model, both custom and Sklearn, while being the simplest and having no tunable hyperparameters, still achieved a surprisingly strong performance. The custom Decision Tree results from Table~\ref{dt_comparison_results}, clearly shows that increasing depth does not always improve results. The deeper trees were obsiously overfitted, and the best-performing version was the model of depth 10. Both the custom and Sklearn version had nearly identical metrics, with the custom DT taking significally longer to train simply due to the optimizations in the Sklearn alogorithm. For the MLP, testing different depths and hidden layer sizes showed that the shallow architecture generalized better, while deeper and wider models memorized the training data while taking longer. The custom shallow MLP slightly outperformed the Sklearn version in every metric except training time (see Table~\ref{mlp_comparison_results}). The CNN, which was expected to outperform the other models due to its ability to learn image features directly from the data, instead struggled. Training on only a small subset of CIFAR-10 caused the models to overfit, resulting in weaker test performances compared to the simpler models trained on PCA features.
+The Gaussian Naive Bayes model, both custom and Sklearn, while being the simplest and having no tunable hyperparameters, still achieved a surprisingly strong performance. The custom Decision Tree results from Table~\ref{dt_comparison_results}, clearly shows that increasing depth does not always improve results. The deeper trees were obsiously overfitted, and the best-performing version was the model of depth 10. Both the custom and Sklearn version had nearly identical metrics, with the custom DT taking significally longer to train simply due to the optimizations in the Sklearn algorithm. For the MLP, testing different depths and hidden layer sizes showed that the single-layer architecture generalized better, while deeper and wider models memorized the training data while taking longer. The Sklearn single-layer MLP slightly outperformed the custom version due to its faster training time (see Table~\ref{mlp_comparison_results}). The CNN, which was expected to outperform the other models due to its ability to learn image features directly from the data, instead struggled. Training on only a small subset of CIFAR-10 caused the models to overfit, resulting in weaker test performances compared to the simpler models trained on PCA features.
 \newline
 \newline
-Overall, this evaluation highlights how preprocessing, architecture and hyperparameter tuning, and training data all have a significant impact on model performance. Among all four models, the shallow MLP provided the best balance of performance and training time on the CIFAR-10 subset. Through these findings, we gained a deeper understanding of how different machine learning models behave under the same conditions with varying parameters, and how they can affect their performance as a whole.
+Overall, this evaluation highlights how preprocessing, architecture and hyperparameter tuning, and training data all have a significant impact on model performance. Among all four models, the single-layer MLP provided the best balance of performance and training time on the CIFAR-10 subset. Through these findings, we gained a deeper understanding of how different machine learning models behave under the same conditions with varying parameters, and how they can affect their performance as a whole.
 \newpage
 \subsection*{References}
 [1] Ultralytics, “CIFAR-10 Dataset for Image Classification,” Accessed: Jan. 2025. [Online]. Available: \url{https://docs.ultralytics.com/datasets/classify/cifar10/}

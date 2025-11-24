@@ -28,7 +28,7 @@ X_test, y_test = pca_data['X_test'], pca_data['y_test']
 class_names = pca_data['class_names']
 
 # Train custom Decision Tree
-print("Training Custom Decision Tree with max_depth={}...\n".format(max_depth))
+print("Training Custom Decision Tree with a Max Depth of {}...\n".format(max_depth))
 start = time.time()
 decision_tree = DecisionTree(max_depth=max_depth)
 decision_tree.fit(X_train, y_train)
@@ -40,7 +40,7 @@ with open(custom_model_results_path + "custom_decision_tree_metrics.json", "w") 
 print("\nTraining of Custom Decision Tree completed.\nModel saved to {}\n".format(custom_model_path))
 
 # Train sklearn Decision Tree
-print("Training Sklearn Decision Tree...\n")
+print("Training Sklearn Decision Tree with a Max Depth of {}...\n".format(max_depth))
 start = time.time()
 sk_decision_tree = DecisionTreeClassifier(max_depth=max_depth, criterion='gini', random_state=42)
 sk_decision_tree.fit(X_train, y_train)

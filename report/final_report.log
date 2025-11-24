@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.16)  24 NOV 2025 03:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.16)  24 NOV 2025 15:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -428,15 +428,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 332--357
  []
 
 [9]
-<../results/mlp/mlp_custom/shallow/custom_mlp_confusion_matrix.png, id=205, 722.7pt x 578.16pt>
-File: ../results/mlp/mlp_custom/shallow/custom_mlp_confusion_matrix.png Graphic file (type png)
-<use ../results/mlp/mlp_custom/shallow/custom_mlp_confusion_matrix.png>
-Package pdftex.def Info: ../results/mlp/mlp_custom/shallow/custom_mlp_confusion_matrix.png  used on input line 364.
+<../results/mlp/mlp_custom/single/custom_mlp_confusion_matrix.png, id=205, 722.7pt x 578.16pt>
+File: ../results/mlp/mlp_custom/single/custom_mlp_confusion_matrix.png Graphic file (type png)
+<use ../results/mlp/mlp_custom/single/custom_mlp_confusion_matrix.png>
+Package pdftex.def Info: ../results/mlp/mlp_custom/single/custom_mlp_confusion_matrix.png  used on input line 364.
 (pdftex.def)             Requested size: 339.72592pt x 271.77934pt.
-<../results/mlp/mlp_sklearn/shallow/sklearn_mlp_confusion_matrix.png, id=206, 722.7pt x 578.16pt>
-File: ../results/mlp/mlp_sklearn/shallow/sklearn_mlp_confusion_matrix.png Graphic file (type png)
-<use ../results/mlp/mlp_sklearn/shallow/sklearn_mlp_confusion_matrix.png>
-Package pdftex.def Info: ../results/mlp/mlp_sklearn/shallow/sklearn_mlp_confusion_matrix.png  used on input line 365.
+<../results/mlp/mlp_sklearn/single/sklearn_mlp_confusion_matrix.png, id=206, 722.7pt x 578.16pt>
+File: ../results/mlp/mlp_sklearn/single/sklearn_mlp_confusion_matrix.png Graphic file (type png)
+<use ../results/mlp/mlp_sklearn/single/sklearn_mlp_confusion_matrix.png>
+Package pdftex.def Info: ../results/mlp/mlp_sklearn/single/sklearn_mlp_confusion_matrix.png  used on input line 365.
 (pdftex.def)             Requested size: 339.72592pt x 271.77934pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 358--368
@@ -453,11 +453,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 375--387
 
  []
 
-[11 <../results/mlp/mlp_custom/shallow/custom_mlp_confusion_matrix.png> <../results/mlp/mlp_sklearn/shallow/sklearn_mlp_confusion_matrix.png>]
-<../results/cnn/vgg11/custom_cnn/custom_cnn_confusion_matrix.png, id=224, 722.7pt x 578.16pt>
-File: ../results/cnn/vgg11/custom_cnn/custom_cnn_confusion_matrix.png Graphic file (type png)
-<use ../results/cnn/vgg11/custom_cnn/custom_cnn_confusion_matrix.png>
-Package pdftex.def Info: ../results/cnn/vgg11/custom_cnn/custom_cnn_confusion_matrix.png  used on input line 418.
+[11 <../results/mlp/mlp_custom/single/custom_mlp_confusion_matrix.png> <../results/mlp/mlp_sklearn/single/sklearn_mlp_confusion_matrix.png>]
+<../results/cnn/custom_cnn/vgg11/custom_cnn_confusion_matrix.png, id=224, 722.7pt x 578.16pt>
+File: ../results/cnn/custom_cnn/vgg11/custom_cnn_confusion_matrix.png Graphic file (type png)
+<use ../results/cnn/custom_cnn/vgg11/custom_cnn_confusion_matrix.png>
+Package pdftex.def Info: ../results/cnn/custom_cnn/vgg11/custom_cnn_confusion_matrix.png  used on input line 418.
 (pdftex.def)             Requested size: 339.72592pt x 271.77934pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 412--421
@@ -469,7 +469,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 430--449
 
  []
 
-[13 <../results/cnn/vgg11/custom_cnn/custom_cnn_confusion_matrix.png>]
+[13 <../results/cnn/custom_cnn/vgg11/custom_cnn_confusion_matrix.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 450--454
 
  []
@@ -545,19 +545,22 @@ Overfull \hbox (77.27748pt too wide) in paragraph at lines 467--495
  []
 
 [15] (final_report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `final_report.out' has not changed.
 (rerunfilecheck)             Checksum: 698E57E956F17669CF840157E950C803;6110.
  ) 
 Here is how much of TeX's memory you used:
  8996 strings out of 476331
- 149109 string characters out of 5787293
+ 149095 string characters out of 5787293
  1869660 words of memory out of 5000000
  29262 multiletter control sequences out of 15000+600000
  515521 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,76p,1388b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,76p,1392b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Matteo\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Matteo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on final_report.pdf (16 pages, 1700027 bytes).
+Output written on final_report.pdf (16 pages, 1694345 bytes).
 PDF statistics:
  337 PDF objects out of 1000 (max. 8388607)
  64 named destinations out of 1000 (max. 500000)

@@ -131,7 +131,8 @@ models = {
     },
 }
 
-# Selected model and training parameters
+# Selected model (options: "vgg11", "shallow", "vgg11_large_kernels")
 selected_model = "vgg11_large_kernels"
+
 learning_rate = 0.01
 epochs = 50
