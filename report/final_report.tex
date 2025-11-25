@@ -34,7 +34,7 @@
 \newpage
 \begin{abstract}
 \noindent    
-This project examines the performance of various machine learning models for \textbf{image classification on the CIFAR-10 dataset}. The four models implemented include \textbf{Guassian Naive Bayes (GNB)}, \textbf{Decision Tree (DT)}, \textbf{Multi-Layer Perceptron (MLP)}, and a \textbf{Convolutional Neural Network (CNN) based on the VGG11 architecture}. The GNB, DT, and MLP models were trained using \textbf{image features extracted from a pre-trained ResNet-18 CNN model} and after feature vector \textbf{size reduction using PCA}. The CNN model was trained directly on the CIFAR-10 images. All models were trained and evaluated on subsets of the CIFAR-10 dataset, using \textbf{standard performance metrics}, including \textbf{accuracy}, \textbf{precision}, \textbf{recall}, \textbf{F1-score}, \textbf{training time}, and \textbf{confusion matrices} to compare and analyze. The study highlights how different models compare amongst each other and analyses the impact of changing \textbf{model depth}, \textbf{hidden layer size}, and \textbf{kernel size}, has on performance.
+This project examines the performance of various machine learning models for \textbf{image classification on the CIFAR-10 dataset}. The four models implemented include \textbf{Guassian Naive Bayes (GNB)}, \textbf{Decision Tree (DT)}, \textbf{Multi-Layer Perceptron (MLP)}, and a \textbf{Convolutional Neural Network (CNN) based on the VGG11 architecture}. The GNB, DT, and MLP models were trained using \textbf{image features extracted from a pre-trained ResNet-18 CNN model} and after feature vector \textbf{size reduction using PCA}. The CNN model was trained directly on the CIFAR-10 images. All models were trained and evaluated on subsets of the CIFAR-10 dataset, using standard performance metrics, including \textbf{accuracy}, \textbf{precision}, \textbf{recall}, \textbf{F1-score}, \textbf{training time}, and \textbf{confusion matrices} to compare and analyze. The study highlights how different models compare amongst each other and analyses the impact of changing \textbf{model depth}, \textbf{hidden layer size}, and \textbf{kernel size}, has on performance.
 \end{abstract}
 
 \section{Introduction}
@@ -47,19 +47,19 @@ The goal of this project is to compare the four different type of models, includ
 Part of the goal of this project was not only to compare the models but also to see how different \textbf{hyperparameters} affect the performance of each model. This includes changing the depth of the DT, increasing or decreasing the number of layers and layer size of the MLP, and increasing or decreasing the number of layers and kernel size of the CNN. By changing these hyperparameters, we can see how they affect the performance of each model in regard to learning, overfitting, training time and general performance.
 \newline
 \newline
-This project aims to not only evaluate the performance of each model but also understand why they perform the way they do. By analyzing the results of each model with different hyperparameters, we can get a better understanding of the positive and negatve aspects of each model and how it affects the results on a popular image classification dataset such as CIFAR-10.
+This project aims to not only evaluate the performance of each model but also understand why they perform the way they do. By analyzing the results of each model with different hyperparameters, we can get a better understanding of the positive and negative aspects of each model and how it affects the results on a popular image classification dataset such as CIFAR-10.
 
 \section{Dataset Overview}
 The CIFAR-10 dataset is a commonly used benchmark dataset for image classification. It contains \textbf{60,000 color images}, \textbf{50,000 training images} and \textbf{10,000 test images}, of \textbf{size 32 x 32}, each belonging to one of \textbf{10 classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck} [2]. Due to its small size and simplicity, CIFAR-10 is often used for testing and evaluating machine learning models for image classification. 
 \newline
 \newline
-For this project, the CIFAR-10 datatset was sliced down to only \textbf{500 training images} and \textbf{100 test images} per class, resulting in a total of \textbf{6,000 images (5,000 training images and 1,000 test images)}, ultimately to reduce training time for models while still providing enough data for the models to learn from.
+For this project, the CIFAR-10 dataset was sliced down to only \textbf{500 training images} and \textbf{100 test images} per class, resulting in a total of \textbf{6,000 images (5,000 training images and 1,000 test images)}, ultimately to reduce training time for models while still providing enough data for the models to learn from.
 \newline
 \newline
 Since Gaussian Naive Bayes (GNB), Decision Trees (DT), and Multi-Layered Perceptrons (MLP) are not made to deal with high-dimensional RGB images due to the \textbf{curse of dimensionality} where model performance drops as dimension space grows [3], additional preprocessing is necessary to convert them into \textbf{low-dimensional vectors} through \textbf{feature extraction}. All CIFAR-10 images used for these models were first \textbf{normalized} and \textbf{resized to 224x224} to match the expected format for \textbf{ResNet-18}. The images were then passed through a \textbf{pre-trained ResNet-18 CNN} to extract \textbf{512-dimensional feature vectors}. To further reduce the dimensionality of these feature vectors, \textbf{PCA} is applied reducing the 512-dimensional vectors to \textbf{50 dimensions}. With these reduced CIFAR-10 feature vectors, the GNB, DT, and MLP models can now be trained and evaluated effectively.
 \newline
 \newline
-On the other hand, the CNN model (VGG11 architecture) was trained directly on the original CIFAR-10 images without any feature extraction or dimensionality reduction. This is becasue CNNs are designed to handle high-dimensional images directly.
+On the other hand, the CNN model (VGG11 architecture) was trained directly on the original CIFAR-10 images without any feature extraction or dimensionality reduction. This is because CNNs are designed to handle high-dimensional images directly.
 \newline
 \newline
 These steps ensures that all models are trained under ideal conditions for their respective architectures, allowing for a fair comparison of their performance on the CIFAR-10 dataset.
@@ -205,7 +205,7 @@ Both the custom Gaussian Naive Bayes (GNB) implementation and the Sklearn GNB mo
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Custom GNB} & \textbf{Sklearn GNB} \\ \hline
-Accuracy & 0.80 & 0.780 \\ \hline
+Accuracy & 0.80 & 0.80 \\ \hline
 Train Accuracy & 0.82 & 0.82 \\ \hline
 Precision & 0.80 & 0.80 \\ \hline
 Recall & 0.80 & 0.80 \\ \hline
@@ -226,7 +226,7 @@ The confusion matrices for both models are shown in Figure~\ref{gnb_confusion_ma
     \textbf{\caption{Confusion matrices for the Custom GNB (top) and Sklearn GNB (bottom).}}
     \label{gnb_confusion_matrices}
 \end{figure}
-Overall, the results show that both models result in identical classification performance on the CIFAR-10 dataset, with the custom implementation having a faster training time. The GNB model performs decently well considering its simplicity, but is limited due to its lack of complexity.
+Overall, the results show that both models result in identical classification performance on the CIFAR-10 dataset, with the custom implementation having a slightly faster training time. The GNB model performs decently well considering its simplicity, but is limited due to its lack of complexity.
 \subsection{Decision Tree Results}
 \subsubsection{Effect of Maximum Depth on Performance}
 Both the custom Decision Tree (DT) and the Sklearn DT were trained and evaluated on the 50-dimensional PCA feature vectors extracted from the CIFAR-10 data. To analyze the effect tree depth has on performance, the models were trained with various maximum depths:
@@ -242,17 +242,17 @@ The peformance of the custom DT across these depths is summarized in Table~\ref{
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Depth 5} & \textbf{Depth 10} & \textbf{Depth 20} & \textbf{Depth 50} \\ \hline
-Accuracy & 0.55 & 0.61 & 0.57 & 0.57 \\ \hline
+Accuracy & 0.55 & 0.61 & 0.58 & 0.58 \\ \hline
 Train Accuracy & 0.62 & 0.88 & 1.00 & 1.00 \\ \hline
-Precision & 0.56 & 0.62 & 0.57 & 0.57 \\ \hline
-Recall & 0.55 & 0.61 & 0.57 & 0.57 \\ \hline
-F1-Score & 0.54 & 0.61 & 0.57 & 0.57 \\ \hline
-Training Time (s) & 258.49 & 342.55 & 369.03 & 406.09 \\ \hline
+Precision & 0.56 & 0.62 & 0.59 & 0.59 \\ \hline
+Recall & 0.55 & 0.61 & 0.58 & 0.58 \\ \hline
+F1-Score & 0.54 & 0.61 & 0.58 & 0.58 \\ \hline
+Training Time (s) & 258.49 & 342.55 & 388.66 & 488.34 \\ \hline
 \end{tabular}
 \textbf{\caption{Custom DT Results with Varying Depths}}
 \label{custom_depth_dt_results}
 \end{table}
-The results show that the depth of the tree has a significant impact on the performance of the custom DT model. With a maximum depth of 5, the model is \textbf{underfitting} the data with a training accuracy of only \textbf{62\%} and a test accuracy of \textbf{55\%}. As the depth increases to 10, the model's performance improves with a training accuracy of \textbf{88\%} and a test accuracy of \textbf{61\%}. However, when the depth is increased to 20 and 50, the model achieves perfect training accuracy but the test accuracy drops to \textbf{57\%}, indicating \textbf{overfitting}. Ultimately, a maximum depth of 10 provides the best outcome with a good balance between training and test accuracy.
+The results show that the depth of the tree has a significant impact on the performance of the custom DT model. With a maximum depth of 5, the model is \textbf{underfitting} the data with a training accuracy of only \textbf{62\%} and a test accuracy of \textbf{55\%}. As the depth increases to 10, the model's performance improves with a training accuracy of \textbf{88\%} and a test accuracy of \textbf{61\%}. However, when the depth is increased to 20 or 50, the model achieves perfect training accuracy with an accuracy that drops to \textbf{58\%}, indicating \textbf{overfitting}. Ultimately, a maximum depth of 10 provides the best outcome with a good balance between training and test accuracy.
 \subsubsection{Comparison Between Custom and Sklearn Decision Tree}
 After analyzing the effect of maximum depth on the custom Decision Tree (DT) model, a maximum depth of 10 was selected as the best performing depth due to its balance between training and test accuracy. Table~\ref{dt_comparison_results} summarizes the performance metrics of both the custom and Sklearn DT models at this depth.\\
 \begin{table}[H]
@@ -301,17 +301,17 @@ All architectures were trained using the same training settings shown in Table~\
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Single-Layer} & \textbf{Shallow} & \textbf{Base} & \textbf{Deep} & \textbf{Wide} \\ \hline
-Accuracy & 0.83 & 0.83 & 0.82 & 0.80 & 0.83 \\ \hline
+Accuracy & 0.83 & 0.83 & 0.82 & 0.80 & 0.82 \\ \hline
 Train Accuracy & 0.87 & 0.95 & 1.0 & 1.0 & 1.0 \\ \hline
-Precision & 0.83 & 0.83 & 0.82 & 0.81 & 0.83 \\ \hline
-Recall & 0.83 & 0.83 & 0.82 & 0.80 & 0.83 \\ \hline
-F1-Score & 0.83 & 0.83 & 0.82 & 0.90 & 0.83 \\ \hline
-Training Time (s) & 35.86 & 34.33 & 77.95 & 120.66 & 113.82 \\ \hline
+Precision & 0.83 & 0.83 & 0.82 & 0.80 & 0.82 \\ \hline
+Recall & 0.83 & 0.83 & 0.82 & 0.80 & 0.82 \\ \hline
+F1-Score & 0.83 & 0.83 & 0.82 & 0.80 & 0.82 \\ \hline
+Training Time (s) & 35.86 & 34.33 & 77.95 & 162.82 & 115.9 \\ \hline
 \end{tabular}
 \textbf{\caption{Custom MLP Results with Varying Architectures}}
 \label{custom_mlp_arch_results}
 \end{table}
-The results show that the increase of depth and width do not always lead to better performance. The single-layer architecture had the best overall results with an accuracy of \textbf{83\%} and a training accuracy of \textbf{87\%}, stipulating that it was able to learn the data well without overfitting. The shallow MLP also performed well with a test accuracy of \textbf{83\%} and a training accuracy of \textbf{95\%}, showing that simple architectures can achieve good results. Where as the deeper and wider models attained \textbf{100\%} training accuracy but had lower test accuracies of \textbf{80\%} and \textbf{83\%} respectively, suggesting overfitting.
+The results show that the increase of depth and width do not always lead to better performance. The single-layer architecture had the best overall results with an accuracy of \textbf{83\%} and a training accuracy of \textbf{87\%}, stipulating that it was able to learn the data well without overfitting. The shallow MLP also performed well with a test accuracy of \textbf{83\%} and a training accuracy of \textbf{95\%}, but was showing signs of overfitting. Where as the deeper and wider models attained \textbf{100\%} training accuracy and had lower test accuracies of \textbf{80\%} and \textbf{82\%} respectively, suggesting overfitting.
 \subsubsection{Comparison Between Custom and Sklearn Multi-Layer Perceptron}
 Since the single-layer architecture provided the best performance for the custom MLP, we will compare it against the Sklearn MLP with the same architecture. The performance metrics for both the custom and Sklearn MLP with the single-layer architecture are summarized in Table~\ref{mlp_comparison_results}.
 \begin{table}[H]
@@ -329,7 +329,7 @@ Training Time (s) & 35.86 & 4.48 \\ \hline
 \textbf{\caption{Comparison of Custom and Sklearn MLP Results with Single-Layer Architecture}}
 \label{mlp_comparison_results}
 \end{table}
-Both implementations of the MLP with the single-layer architecture achieved identical performances, with the Sklearn MLP slightly outperforming the custom MLP solely in training time where it was nearly 10x faster. This is likely due to the optimized nature of the Sklearn implementation compared to the custom PyTorch implementation. Despite the minor difference, both models demonstrate strong performance on the CIFAR-10 dataset with the signle-layer architecture, indicating that not only is this architecture and model suitable for this problem, but also that the custom implementation is working correctly.
+Both implementations of the MLP with the single-layer architecture achieved identical performances, with the Sklearn MLP slightly outperforming the custom MLP solely in training time where it was nearly 10x faster. This is likely due to the optimized nature of the Sklearn implementation compared to the custom PyTorch implementation. Despite the minor difference, both models demonstrate strong performance on the CIFAR-10 dataset with the single-layer architecture, indicating that not only is this architecture and model suitable for this problem, but also that the custom implementation is working correctly.
 \newline
 \newline
 To show how the single-layer MLP trains over time, a subset of the training logs for the custom implementation is shown in Table~\ref{mlp_training_log}.
@@ -369,7 +369,7 @@ The confusion matrices for both models with the single-layer architecture are sh
 Both models show similar classification patterns, with most classes being classified correctly. However, some misclassifications occur, such as mistaking cats and dogs for each other (~12), which is expected due to their similar features. The similarities between both confusion matrices reinforces the idea that both implementations are functioning correctly.
 \newline
 \newline
-In summary, the results show that both implementations of the MLP with the single-layer architecture perform well on the CIFAR-10 dataset, with the custom implementation being slightly better in every metric except training time. Based on these results and analysis, the single-layer MLP architecture seems to be an effective solution to the CIFAR-10 image classification problem.
+In summary, the results show that both implementations with the single-layer architecture perform well on the CIFAR-10 dataset, with both achieving identical performance metrics and the Sklearn version having a significantly faster training time. Based on these results and analysis, the single-layer MLP architecture seems to be an effective solution to the CIFAR-10 image classification problem.
 \subsection{Convolutional Neural Network Results}
 \subsubsection{CNN Training Environment}
 Unlike the other models, the Convolutional Neural Network (CNN) model was trained directly on the 32 x 32 x 3 CIFAR-10 images. Due to the high computational power needed to train the CNN model, all experiments were conducted on Google Colab using the environment specifications detailed in Table~\ref{cnn_env_specifications}.\\
@@ -399,17 +399,17 @@ All three models were trained with the same training settings shown in Table~\re
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{Metric} & \textbf{Shallow CNN} & \textbf{VGG11 (Base)} & \textbf{VGG11 (Larger Kernels)} \\ \hline
-Accuracy & 0.62 & 0.64 & 0.62 \\ \hline
-Train Accuracy & 0.99 & 1.00 & 0.99 \\ \hline
-Precision & 0.64 & 0.65 & 0.64 \\ \hline
-Recall & 0.62 & 0.64 & 0.62 \\ \hline
-F1-Score & 0.63 & 0.64 & 0.62 \\ \hline
-Training Time (s) & 28.75 & 139.84 & 633.09 \\ \hline
+Accuracy & 0.64 & 0.65 & 0.64 \\ \hline
+Train Accuracy & 1.00 & 1.00 & 1.0 \\ \hline
+Precision & 0.65 & 0.66 & 0.65 \\ \hline
+Recall & 0.64 & 0.65 & 0.64 \\ \hline
+F1-Score & 0.64 & 0.65 & 0.64 \\ \hline
+Training Time (s) & 28.75 & 139.84 & 368.66 \\ \hline
 \end{tabular}
 \textbf{\caption{CNN Architecture Results with Varying Depths and Kernel Sizes}}
 \label{cnn_variant_results}
 \end{table}
-The results show that by increasing the depth of the CNN from the shallow version to the full VGG11 architecture, there is a slight improvement in performance with the test accuracy increasing from \textbf{62\%} to \textbf{64\%}. However, comes at the cost of a significant increase in training time from \textbf{28.75 seconds} to \textbf{139.84 seconds}. On the other hand, increasing the kernel size from 3x3 to 5x5 in the VGG11 architecture does not lead to any performance improvement, with the test accuracy dropping back to \textbf{62\%} and the training time increasing drastically to \textbf{633.09 seconds}. This is because larger kernels are more expensive and can blur critical features that require fine-grained detection [10].
+The results show that by increasing the depth of the CNN from the shallow version to the full VGG11 architecture, there is a slight improvement in performance with the accuracy increasing from \textbf{64\%} to \textbf{65\%}. However, comes at the cost of a significant increase in training time from \textbf{28.75 seconds} to \textbf{139.84 seconds}. On the other hand, increasing the kernel size from 3x3 to 5x5 in the VGG11 architecture does not lead to any performance improvement, with the accuracy dropping back to \textbf{64\%} and the training time increasing drastically to \textbf{368.6 seconds}. This is because larger kernels are more expensive and can blur critical features that require fine-grained detection [10].
 \newline
 \newline
 Since the base VGG11 architecture had the best performance, we will only analyze its confusion matrix shown in Figure~\ref{cnn_confusion_matrix} since the other two models had similar classification patterns.
@@ -421,7 +421,7 @@ Since the base VGG11 architecture had the best performance, we will only analyze
 \end{figure}
 The strongest classifications were seen mainly in the automobile and truck classes, due to their distinct shapes and features, it was either correctly classified or misclassified as each other. However, the model struggled the most with classes representing animals, such as cats, dogs, deers, and birds, likely due to their similar features and appearances.
 \subsubsection{Best CNN Model Analysis}
-While the VGG11 architecture was the best performing CNN model with an accuracy of \textbf{64\%} (see Table~\ref{cnn_variant_results}). It is clear that the CNN model is not performing as well as expected on the CIFAR-10 dataset. This could be due to several factors, such as:
+While the VGG11 architecture was the best performing CNN model with an accuracy of \textbf{65\%} (see Table~\ref{cnn_variant_results}). It is clear that the CNN model is not performing as well as expected on the CIFAR-10 dataset. This could be due to several factors, such as:
 \begin{itemize}
     \item \textbf{Insufficient Training Epochs:} The model was only trained for 50 epochs, which may not be enough for it to fully learn the complex features of the CIFAR-10 images.
     \item \textbf{Overfitting:} The model achieved a training accuracy of \textbf{100\%}, indicating that it may have overfitted to the training data and is not classifying unseen data well.
@@ -436,29 +436,29 @@ In order to show how the VGG11 CNN trains over time, a subset of the training lo
 \begin{tabular}{|l|l|l|}
 \hline
 \textbf{Epoch} & \textbf{Train Loss} & \textbf{Train Accuracy} \\ \hline
-1  & 1.9861 & 26.84\% \\ \hline
-5  & 1.1953 & 57.72\% \\ \hline
-10 & 0.6251 & 78.86\% \\ \hline
-20 & 0.1165 & 96.46\% \\ \hline
-30 & 0.0701 & 98.08\% \\ \hline
-40 & 0.0231 & 99.28\% \\ \hline
-50 & 0.0259 & 99.32\% \\ \hline
+1  & 1.9659 & 26.74\% \\ \hline
+5  & 1.2134 & 57.88\% \\ \hline
+10 & 0.6443 & 78.86\% \\ \hline
+20 & 0.1557 & 95.34\% \\ \hline
+30 & 0.0426 & 98.60\% \\ \hline
+40 & 0.0967 & 97.54\% \\ \hline
+50 & 0.0377 & 98.86\% \\ \hline
 \end{tabular}
 \textbf{\caption{VGG11 Base CNN Training Log (Subset)}}
 \label{cnn_training_log}
 \end{table}
-The model starts with a low accuracy of \textbf{26.84\%} in the first epoch and steadily improves over time, reaching a training accuracy of \textbf{96.46\%} by the $20^{th}$ epoch and from there, starts to show signs of overfitting as it reaches a training accuracy of $99.32\%$ by the $50^{th}$ epoch. This indicates that while the model is effectively learning from the training data, it is also starting to memorize it, which could explain its poor performance on the test set.
+The model starts with a low accuracy of \textbf{26.74\%} in the first epoch and steadily improves over time, reaching a training accuracy of \textbf{95.34\%} by the $20^{th}$ epoch and from there, starts to show signs of overfitting as it reaches a training accuracy of $98.86\%$ by the $50^{th}$ epoch. This indicates that while the model is effectively learning from the training data, it is also starting to memorize it, which could explain its poor performance on the test set.
 \newline
 \newline
-Overall, while the VGG11 CNN model shows some promise with a test accuracy of \textbf{64\%}, it is clear that there are several areas for improvement. By addressing the issues of insufficient training epochs, overfitting, and insufficient data, the performance of the CNN model on the CIFAR-10 dataset could be significantly improved.
+Overall, while the VGG11 CNN model shows some promise with an accuracy of \textbf{65\%}, it is clear that there are several areas for improvement. By addressing the issues of insufficient training epochs, overfitting, and insufficient data, the performance of the CNN model on the CIFAR-10 dataset could be significantly improved.
 \section{Conclusion}
-This project explored the implementation and evlauation of four different mahcine learning models for image classification on the CIFAR-10 dataset: Gaussian Naive Bayes, Decision Tree, Multi-Layer Perceptron, and Convolutional Neural Network. Each model was implemented both from scratch and using the Sklearn library, with the exception of the CNN model, in order to compare their performance and ensure the custom models were implemented correctly. The goal was not only to achieve good performance results, but also to gain a better understanding of how these models work and perform when changing various hyperparameters and architectures such as depth, hidden layer size, and kernel size.
+This project explored the implementation and evaluation of four different machine learning models for image classification on the CIFAR-10 dataset: Gaussian Naive Bayes, Decision Tree, Multi-Layer Perceptron, and Convolutional Neural Network. Each model was implemented both from scratch and using the Sklearn library, with the exception of the CNN model, in order to compare their performance and ensure the custom models were implemented correctly. The goal was not only to achieve good performance results, but also to gain a better understanding of how these models work and perform when changing various hyperparameters and architectures such as depth, hidden layer size, and kernel size.
 \newline
 \newline
 Three of the four models (GNB, DT, MLP) were trained and evaluated on a 50-dimensional PCA feature vector extracted from the CIFAR-10 subset, while the CNN model was trained directly on the subset of CIFAR-10 images. The PCA based models benefited from the reduced dimensionality, allowing them to train faster and more efficiently. The CNN model, on the other hand, had to handle the high-dimensional images directly, leading to longer training times and the need for more computational power.
 \newline
 \newline
-The Gaussian Naive Bayes model, both custom and Sklearn, while being the simplest and having no tunable hyperparameters, still achieved a surprisingly strong performance. The custom Decision Tree results from Table~\ref{dt_comparison_results}, clearly shows that increasing depth does not always improve results. The deeper trees were obsiously overfitted, and the best-performing version was the model of depth 10. Both the custom and Sklearn version had nearly identical metrics, with the custom DT taking significally longer to train simply due to the optimizations in the Sklearn algorithm. For the MLP, testing different depths and hidden layer sizes showed that the single-layer architecture generalized better, while deeper and wider models memorized the training data while taking longer. The Sklearn single-layer MLP slightly outperformed the custom version due to its faster training time (see Table~\ref{mlp_comparison_results}). The CNN, which was expected to outperform the other models due to its ability to learn image features directly from the data, instead struggled. Training on only a small subset of CIFAR-10 caused the models to overfit, resulting in weaker test performances compared to the simpler models trained on PCA features.
+The Gaussian Naive Bayes model, both custom and Sklearn, while being the simplest and having no tunable hyperparameters, still achieved a surprisingly strong performance. The custom Decision Tree results from Table~\ref{dt_comparison_results}, clearly shows that increasing depth does not always improve results. The deeper trees were obviously overfitted, and the best-performing version was the model of depth 10. Both the custom and Sklearn version had nearly identical metrics, with the custom DT taking significally longer to train simply due to the optimizations in the Sklearn algorithm. For the MLP, testing different depths and hidden layer sizes showed that the single-layer architecture generalized better, while deeper and wider models memorized the training data while taking longer. The Sklearn single-layer MLP slightly outperformed the custom version due to its faster training time (see Table~\ref{mlp_comparison_results}). The CNN, which was expected to outperform the other models due to its ability to learn image features directly from the data, instead struggled. Training on only a small subset of CIFAR-10 caused the models to overfit, resulting in weaker test performances compared to the simpler models trained on PCA features.
 \newline
 \newline
 Overall, this evaluation highlights how preprocessing, architecture and hyperparameter tuning, and training data all have a significant impact on model performance. Among all four models, the single-layer MLP provided the best balance of performance and training time on the CIFAR-10 subset. Through these findings, we gained a deeper understanding of how different machine learning models behave under the same conditions with varying parameters, and how they can affect their performance as a whole.

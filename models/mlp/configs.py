@@ -70,7 +70,7 @@ models = {
 }
 
 # Selected model (options: "single", "shallow", "base", "deep", "wide")
-selected_model = "base"
+selected_model = "wide"
 
 epochs = 100
 learning_rate = 0.001
